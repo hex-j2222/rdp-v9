@@ -79,11 +79,13 @@ lottie = "6.7.1"  # was: 6.6.2 → أحدث stable (أكتوبر 2025)
 gson = "2.12.0"  # was: 2.11.0 → أحدث على Maven Central
 
 # Biometric — لمصادقة بصمة الإصبع / وجه / رمز الجهاز
-biometric = "1.2.0"
+# ✅ 1.1.0 هو آخر stable release — 1.2.0 غير موجود على Google Maven
+biometric = "1.1.0"
 
 # bVNC — مكتبة VNC/RFB (libvncserver) لخاصية الاتصال بـ VNC
 # JitPack: com.github.iiordanov:bVNC
-bvnc = "3.10.1"
+# ✅ 3.9.0 هو آخر tag موثوق على JitPack — 3.10.1 غير موجود
+bvnc = "3.9.0"
 
 
 [libraries]
