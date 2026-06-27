@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <cloud-backup>
+        <!--
+            BUG 2 FIX (CORRECTED): Previous rule used domain="sharedpref" which does
+            not match Preferences DataStore files.  DataStore stores its file at:
+                filesDir/datastore/hex_rdp_settings.preferences_pb   → domain="file"
+            The old exclusion was a no-op; the encrypted PIN was still cloud-backed.
+        -->
+        <exclude domain="file" path="datastore/hex_rdp_settings.preferences_pb"/>
+        <!--
+            BUG 2 FIX: Exclude the database from cloud backup.
+            Keystore keys are device-bound; restoring the DB without its key
+            makes every encrypted password unrecoverable (decrypt() returns "").
+        -->
+        <exclude domain="database" path="hex_rdp_database"/>
+
+        <!--
+            FIX #6 (Security): Exclude TOFU host-key stores from cloud backup.
+            Cloud-restoring TOFU keys onto a different device means the app will
+            trust host fingerprints it has never independently verified — enabling
+            a silent MITM attack on restored sessions.
+        -->
+        <exclude domain="sharedpref" path="hexrdp_tofu_ssh"/>
+        <exclude domain="sharedpref" path="hexrdp_tofu_tunnel"/>
+        <exclude domain="sharedpref" path="hexrdp_tofu_sftp"/>
+
+        <!--
+            FIX #6 (Security): Exclude the PIN lockout counter from cloud backup.
+            Restoring pin_lockout resets the brute-force attempt counter, allowing
+            an attacker to bypass the lockout by triggering a cloud restore.
+        -->
+        <exclude domain="sharedpref" path="pin_lockout"/>
+    </cloud-backup>
+    <device-transfer>
+        <!-- Same reasoning applies to device-to-device transfers. -->
+        <exclude domain="file" path="datastore/hex_rdp_settings.preferences_pb"/>
+        <exclude domain="database" path="hex_rdp_database"/>
+        <!-- FIX #6: TOFU keys and lockout counter must not transfer between devices. -->
+        <exclude domain="sharedpref" path="hexrdp_tofu_ssh"/>
+        <exclude domain="sharedpref" path="hexrdp_tofu_tunnel"/>
+        <exclude domain="sharedpref" path="hexrdp_tofu_sftp"/>
+        <exclude domain="sharedpref" path="pin_lockout"/>
+    </device-transfer>
+</data-extraction-rules>

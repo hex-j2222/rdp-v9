@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+    <!--
+        BUG 2 FIX (CORRECTED): The previous rule excluded domain="sharedpref"
+        path="hex_rdp_settings.xml", but the app uses Preferences DataStore — not
+        SharedPreferences. DataStore files live at:
+            filesDir/datastore/hex_rdp_settings.preferences_pb
+        which maps to domain="file", not "sharedpref", and carries a .preferences_pb
+        extension, not .xml.  The old rule matched nothing, so the DataStore file
+        (including the encrypted PIN) was still included in backups.
+    -->
+    <exclude domain="file" path="datastore/hex_rdp_settings.preferences_pb"/>
+    <!--
+        BUG 2 FIX: Exclude the database from backup.
+        Android Keystore encryption keys are device-bound and never backed up.
+        If the database is restored on a new device, all encrypted passwords
+        become unrecoverable. Excluding the DB prevents silent data corruption.
+    -->
+    <exclude domain="database" path="hex_rdp_database"/>
+
+    <!--
+        FIX #6 (Security): Exclude TOFU host-key stores from backup.
+        Restoring TOFU keys from a backup onto a different device (or after a
+        factory reset) can cause the app to silently trust a server whose
+        fingerprint has changed — a potential MITM scenario. Device-local TOFU
+        must be established fresh on each device to be meaningful.
+    -->
+    <exclude domain="sharedpref" path="hexrdp_tofu_ssh"/>
+    <exclude domain="sharedpref" path="hexrdp_tofu_tunnel"/>
+    <exclude domain="sharedpref" path="hexrdp_tofu_sftp"/>
+
+    <!--
+        FIX #6 (Security): Exclude the PIN lockout counter from backup.
+        pin_lockout stores the failed-attempt counter that enforces the
+        brute-force delay. Restoring an older backup would reset this counter,
+        letting an attacker with physical access bypass the lockout by
+        restoring a clean backup before trying again.
+    -->
+    <exclude domain="sharedpref" path="pin_lockout"/>
+</full-backup-content>
