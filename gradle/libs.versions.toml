@@ -86,7 +86,7 @@ biometric = "1.1.0"
 # ✅ الـ repo الحقيقي هو: iiordanov/remote-desktop-clients (وليس iiordanov/bVNC)
 # ✅ تنسيق الـ tag الصحيح: RELEASE-v6.4.2 (وليس أرقام مثل 3.10.1)
 # JitPack multi-module: group = com.github.iiordanov.remote-desktop-clients
-bvnc = "RELEASE-v6.4.2"
+# bvnc = "RELEASE-v6.4.2"  ← معطَّل: JitPack لا يستطيع بناء bVNC (NDK/FreeRDP/sqlcipher)
 
 
 [libraries]
@@ -130,7 +130,7 @@ lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-
 # Biometric — مصادقة بيومترية (BiometricManager, BiometricPrompt)
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 # bVNC module داخل iiordanov/remote-desktop-clients (JitPack multi-module format)
-bvnc = { group = "com.github.iiordanov.remote-desktop-clients", name = "bVNC", version.ref = "bvnc" }
+# bvnc = { group = "com.github.iiordanov.remote-desktop-clients", name = "bVNC", version.ref = "bvnc" }  ← معطَّل: local stubs بدلاً منه
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
