@@ -189,8 +189,9 @@ dependencies {
     // Biometric — مصادقة بصمة الإصبع ورمز الجهاز (BiometricManager/BiometricPrompt)
     implementation(libs.androidx.biometric)
 
-    // bVNC — مكتبة VNC/RFB (com.undatech.opaque) للاتصال بخوادم VNC
-    implementation(libs.bvnc)
+    // bVNC (com.undatech.opaque) — استُعيض عنها بـ local stubs في:
+    // app/src/main/java/com/undatech/opaque/
+    // السبب: بناء bVNC عبر JitPack يفشل لأنها تعتمد على NDK+FreeRDP+sqlcipher prebuilt.
 
     // Testing
     testImplementation(libs.junit)
