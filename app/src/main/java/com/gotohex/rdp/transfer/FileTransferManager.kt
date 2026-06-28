@@ -350,9 +350,9 @@ class SftpFileBrowser(
             val vfs = ch.statVFS(remotePath)
             // JSch 0.2.x: الحقول bsize/bavail أصبحت private → نستخدم getters الصريحة
             // getBsize() = fundamental block size, getBavail() = blocks avail to non-root
-            val blockSize = vfs.getBsize().coerceAtLeast(1L)
+            val blockSize = vfs.getBlockSize().coerceAtLeast(1L)
             StorageSpace(
-                freeBytes  = vfs.getBavail() * blockSize,
+                freeBytes  = vfs.getAvailForNonRoot() * blockSize,
                 totalBytes = vfs.getBlocks() * blockSize
             )
         } catch (_: Exception) {
