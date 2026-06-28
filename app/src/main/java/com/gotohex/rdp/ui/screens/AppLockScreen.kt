@@ -367,7 +367,7 @@ private fun launchBiometric(context: Context, onSuccess: () -> Unit) {
     }
     if (biometricManager.canAuthenticate(authenticators) != BiometricManager.BIOMETRIC_SUCCESS) return
 
-    val executor = ContextCompat.getMainExecutor(context)
+    // biometric 1.2.0-alpha05: new 2-arg constructor accepts ComponentActivity directly
     val callback = object : BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
             onSuccess()
@@ -386,7 +386,7 @@ private fun launchBiometric(context: Context, onSuccess: () -> Unit) {
             android.util.Log.w("AppLockScreen", "Biometric error $errorCode: $errString")
         }
     }
-    val prompt = BiometricPrompt(activity, executor, callback)
+    val prompt = BiometricPrompt(activity, callback)
     val info = BiometricPrompt.PromptInfo.Builder()
         .setTitle(context.getString(R.string.biometric_prompt_title))
         .setSubtitle(context.getString(R.string.biometric_prompt_subtitle))
