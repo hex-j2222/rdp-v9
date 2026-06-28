@@ -80,7 +80,7 @@ gson = "2.12.0"  # was: 2.11.0 → أحدث على Maven Central
 
 # Biometric — لمصادقة بصمة الإصبع / وجه / رمز الجهاز
 # ✅ 1.1.0 هو آخر stable release — 1.2.0 غير موجود على Google Maven
-biometric = "1.1.0"
+biometric = "1.2.0-alpha05"
 
 # bVNC — مكتبة VNC/RFB (libvncserver) لخاصية الاتصال بـ VNC
 # ✅ الـ repo الحقيقي هو: iiordanov/remote-desktop-clients (وليس iiordanov/bVNC)
