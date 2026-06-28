@@ -2,7 +2,7 @@ package com.gotohex.rdp.ui.screens
 
 import android.content.Context
 import android.os.Build
-import androidx.activity.ComponentActivity
+import androidx.fragment.app.FragmentActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.compose.animation.*
@@ -26,7 +26,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.*
-import androidx.core.content.ContextCompat
 import com.gotohex.rdp.R
 import com.gotohex.rdp.security.CryptoHelper
 import java.security.MessageDigest
@@ -354,7 +353,7 @@ private fun launchBiometric(context: Context, onSuccess: () -> Unit) {
     // not FragmentActivity. The original cast always returned null, silently
     // preventing biometric auth from ever running.
     // androidx.biometric.BiometricPrompt accepts ComponentActivity directly.
-    val activity = context as? ComponentActivity ?: return
+    val activity = context as? FragmentActivity ?: return
     val biometricManager = BiometricManager.from(context)
 
     // BUG 10 FIX: BIOMETRIC_STRONG | DEVICE_CREDENTIAL in setAllowedAuthenticators()
