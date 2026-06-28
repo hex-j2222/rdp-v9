@@ -8,7 +8,7 @@ import android.widget.Toast
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
-import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -77,7 +77,7 @@ import androidx.core.content.ContextCompat
 // ─────────────────────────────────────────────────────────────────────────────
 
 @AndroidEntryPoint
-class RdpSessionActivity : ComponentActivity() {
+class RdpSessionActivity : AppCompatActivity() {
 
     private val viewModel: RdpSessionViewModel by viewModels()
 
